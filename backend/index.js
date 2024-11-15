@@ -20,6 +20,13 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 
+res.cookie('token', token, {
+    httpOnly: true,  // Makes cookie accessible only by the server
+    secure: process.env.NODE_ENV === 'production',  // Only secure cookies in production (HTTPS)
+    sameSite: 'None'  // Allow cross-origin cookies (necessary for cross-site requests)
+});
+
+
 app.use("/api",router)
 
 
