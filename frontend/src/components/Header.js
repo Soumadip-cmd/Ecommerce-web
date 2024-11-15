@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Logo from './Logo'
 import { GrSearch } from "react-icons/gr";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -30,6 +30,7 @@ const Header = () => {
 
     const data = await fetchData.json()
 
+    
     if(data.success){
       toast.success(data.message)
       dispatch(setUserDetails(null))
@@ -41,6 +42,10 @@ const Header = () => {
     }
 
   }
+
+  useEffect(()=>{
+    console.log(user._id)
+  },[])
 
   const handleSearch = (e)=>{
     const { value } = e.target
@@ -72,6 +77,7 @@ const Header = () => {
             <div className='flex items-center gap-7'>
                 
                 <div className='relative flex justify-center'>
+                
 
                   {
                     user?._id && (
