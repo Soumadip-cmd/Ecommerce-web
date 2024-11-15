@@ -1,0 +1,33 @@
+//output via hosted server
+
+checkPassoword true
+token undefined
+token undefined
+category []
+token undefined
+token undefined
+category []
+token undefined
+token undefined
+category []
+
+
+//output via localhost
+
+token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzM3OWEzZjcyZWZkOTYzOWIwODBlNWUiLCJlbWFpbCI6InJpa3NhbnRyYTIwMDRAZ21haWwuY29tIiwiaWF0IjoxNzMxNjk5OTA5LCJleHAiOjE3MzE3Mjg3MDl9.kBm6fyOYEp4pbtqX1lxWGPqfe_SNL6cBxVPsoVsSfvk       
+userId 67379a3f72efd9639b080e5e
+token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzM3OWEzZjcyZWZkOTYzOWIwODBlNWUiLCJlbWFpbCI6InJpa3NhbnRyYTIwMDRAZ21haWwuY29tIiwiaWF0IjoxNzMxNjk5OTA5LCJleHAiOjE3MzE3Mjg3MDl9.kBm6fyOYEp4pbtqX1lxWGPqfe_SNL6cBxVPsoVsSfvk       
+user {
+  _id: new ObjectId('67379a3f72efd9639b080e5e'),
+  name: 'peter Santra',
+  email: 'riksantra2004@gmail.com',
+  password: '$2a$10$uURF6n4Qd5he86/Rkl6n4uzBTIiXvRH//rRL.sy55DED8VgF8HHCe',
+  profilePic: '',
+  role: 'GENERAL',
+  createdAt: 2024-11-15T19:00:15.655Z,        
+  updatedAt: 2024-11-15T19:00:15.655Z,        
+  __v: 0
+}
+category []
+
+
