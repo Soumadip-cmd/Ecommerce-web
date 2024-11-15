@@ -16,6 +16,12 @@ app.use(cookieParser())
 
 app.use("/api",router)
 
+
+
+
+app.use(express.json({ limit: "50mb" })); // adjust "10mb" to your needs
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 const PORT = 8080 || process.env.PORT
 
 
