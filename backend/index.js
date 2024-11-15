@@ -6,10 +6,13 @@ const connectDB = require('./config/db')
 const router = require('./routes')
 
 
+
+
+const app = express()
+
 app.use(express.json({ limit: "50mb" })); // adjust "10mb" to your needs
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-const app = express()
 app.use(cors({
     origin : process.env.FRONTEND_URL,
     credentials : true
