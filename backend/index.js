@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const connectDB = require('./config/db')
 const router = require('./routes')
-
+connectDB()
 
 
 
@@ -30,9 +30,9 @@ app.use("/api",router)
 const PORT = 8088 || process.env.PORT
 
 
-connectDB().then(()=>{
-    app.listen(PORT,()=>{
-        console.log("connnect to DB")
-        console.log("Server is running "+PORT)
-    })
+
+app.listen(PORT,()=>{
+    console.log("connnect to DB")
+    console.log("Server is running "+PORT)
 })
+
