@@ -43,9 +43,12 @@ const Header = () => {
 
   }
 
-  useEffect(()=>{
-    console.log(user._id)
-  },[])
+  useEffect(() => {
+    if (user?._id) {
+      console.log(user._id);
+    }
+  }, [user]);
+  
 
   const handleSearch = (e)=>{
     const { value } = e.target
