@@ -27,7 +27,7 @@ app.use("/api",router)
 
 
 
-const PORT = 8080 || process.env.PORT
+const PORT = 8088 || process.env.PORT
 
 
 connectDB().then(()=>{
