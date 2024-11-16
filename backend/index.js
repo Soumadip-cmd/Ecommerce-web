@@ -12,25 +12,25 @@ app.use(express.json({ limit: "50mb" })); // Adjust limit as needed
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Allow credentials and set CORS origin
-// app.use(cors({
-//     origin: process.env.FRONTEND_URL,
-//     credentials: true
-// }));
 app.use(cors({
-    origin:process.env.FRONTEND_URL,
-    credentials: true,
-    allowedHeaders: [
-        'Content-Type', 
-        'Authorization',
-        'X-Requested-With',
-        'Accept',
-        'Origin'
-    ],
-    exposedHeaders: ['Set-Cookie'],
-    // Increase preflightContinue timeout if needed
-    optionsSuccessStatus: 200,
-    preflightContinue: false,
+    origin: process.env.FRONTEND_URL,
+    credentials: true
 }));
+// app.use(cors({
+//     origin:process.env.FRONTEND_URL,
+//     credentials: true,
+//     allowedHeaders: [
+//         'Content-Type', 
+//         'Authorization',
+//         'X-Requested-With',
+//         'Accept',
+//         'Origin'
+//     ],
+//     exposedHeaders: ['Set-Cookie'],
+//     // Increase preflightContinue timeout if needed
+//     optionsSuccessStatus: 200,
+//     preflightContinue: false,
+// }));
 app.use(cookieParser());
 
 // Define a route where cookies will be set
