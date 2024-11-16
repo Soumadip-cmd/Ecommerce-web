@@ -17,7 +17,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 //     credentials: true
 // }));
 app.use(cors({
-    origin: "*",
+    origin:process.env.FRONTEND_URL,
     credentials: true,
     allowedHeaders: [
         'Content-Type', 
