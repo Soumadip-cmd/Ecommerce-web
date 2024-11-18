@@ -1,26 +1,59 @@
+// const addToCartModel = require("../../models/cartProduct")
+
+// const countAddToCartProduct = async(req,res)=>{
+//     try{
+//         const userId = req.userId
+
+//         const count = await addToCartModel.countDocuments({
+//             userId : userId
+//         })
+
+//         res.json({
+//             data : {
+//                 count : count
+//             },
+//             message : "ok",
+//             error : false,
+//             success : true
+//         })
+//     }catch(error){
+//         res.json({
+//             message : error.message || error,
+//             error : false,
+//             success : false,
+//         })
+//     }
+// }
+
+// module.exports = countAddToCartProduct
+
+
+
+
 const addToCartModel = require("../../models/cartProduct")
 
+// countAddToCartProduct.js
 const countAddToCartProduct = async(req,res)=>{
     try{
         const userId = req.userId
 
         const count = await addToCartModel.countDocuments({
-            userId : userId
+            userId: userId
         })
 
         res.json({
-            data : {
-                count : count
+            data: {
+                count: count
             },
-            message : "ok",
-            error : false,
-            success : true
+            message: "ok",
+            error: false,
+            success: true
         })
     }catch(error){
         res.json({
-            message : error.message || error,
-            error : false,
-            success : false,
+            message: error.message || error,
+            error: true,
+            success: false,
         })
     }
 }
