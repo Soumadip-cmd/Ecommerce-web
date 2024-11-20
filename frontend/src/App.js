@@ -3,8 +3,7 @@ import "./App.css";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast"; // Update ToastContainer to Toaster
 import { useEffect, useState } from "react";
 import SummaryApi from "./common";
 import Context from "./context";
@@ -46,6 +45,7 @@ function App() {
     /**user Details cart product */
     fetchUserAddToCart();
   }, []);
+  
   return (
     <>
       <Context.Provider
@@ -55,7 +55,7 @@ function App() {
           fetchUserAddToCart,
         }}
       >
-        <ToastContainer position="top-center" />
+        <Toaster position="top-center" /> {/* Updated to use Toaster */}
 
         <Header />
         <main className="min-h-[calc(100vh-120px)] pt-16">

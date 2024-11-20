@@ -1,5 +1,6 @@
 import SummaryApi from "../common"
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast';
+
 
 const addToCart = async(e,id) =>{
     e?.stopPropagation()

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SummaryApi from '../common'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast';
+
 import moment from 'moment'
 import { MdModeEdit } from "react-icons/md";
 import ChangeUserRole from '../components/ChangeUserRole';

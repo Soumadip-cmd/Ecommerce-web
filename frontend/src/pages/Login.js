@@ -4,7 +4,8 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import SummaryApi from '../common';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
+
 import Context from '../context';
 
 const Login = () => {

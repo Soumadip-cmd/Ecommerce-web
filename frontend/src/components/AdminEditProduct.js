@@ -6,7 +6,7 @@ import uploadImage from '../helpers/uploadImage';
 import DisplayImage from './DisplayImage';
 import { MdDelete } from "react-icons/md";
 import SummaryApi from '../common';
-import {toast} from 'react-toastify'
+import { toast } from 'react-hot-toast';
 
 const AdminEditProduct = ({
     onClose,
