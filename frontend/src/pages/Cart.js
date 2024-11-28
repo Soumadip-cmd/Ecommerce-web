@@ -115,6 +115,11 @@ const Cart = () => {
 
     const totalQty = data.reduce((previousValue,currentValue)=> previousValue + currentValue.quantity,0)
     const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.productId?.sellingPrice) ,0)
+
+    // Payment
+    const handlePayment=(totalPrice)=>{
+        console.log(totalPrice+" Clicked")
+    }
   return (
     <div className='container mx-auto'>
         
@@ -191,7 +196,7 @@ const Cart = () => {
                                         <p>{displayINRCurrency(totalPrice)}</p>    
                                     </div>
 
-                                    <button className='bg-blue-600 p-2 text-white w-full mt-2'>Payment</button>
+                                    <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={()=>handlePayment(totalPrice)}>Payment</button>
 
                                 </div>
                             )
