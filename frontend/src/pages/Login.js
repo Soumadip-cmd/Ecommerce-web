@@ -111,7 +111,7 @@ const Login = () => {
                             className='bg-red-600 hover:bg-red-700 text-white px-6 py-2 w-full max-w-[150px] rounded-full hover:scale-110 transition-all mx-auto block mt-6 disabled:bg-red-400 disabled:hover:scale-100'>
                             {loading ? (
                                 <span className="inline-flex items-center">
-                                    Logging in<LoadingDots />
+                                    Logging<LoadingDots />
                                 </span>
                             ) : 'Login'}
                         </button>
