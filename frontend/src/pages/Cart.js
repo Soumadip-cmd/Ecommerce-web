@@ -120,6 +120,8 @@ const Cart = () => {
     const handlePayment=(totalPrice)=>{
         console.log(totalPrice+" Clicked")
     }
+
+    
   return (
     <div className='container mx-auto'>
         
