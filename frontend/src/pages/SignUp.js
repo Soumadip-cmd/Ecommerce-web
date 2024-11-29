@@ -17,6 +17,7 @@ const SignUp = () => {
     name: "",
     confirmPassword: "",
     profilePic: "",
+    address: "" // Added address field
   })
   const navigate = useNavigate()
 
@@ -45,6 +46,10 @@ const SignUp = () => {
     e.preventDefault()
     if(data.password !== data.confirmPassword) {
       return toast.error("Please check password and confirm password")
+    }
+
+    if(!data.address.trim()) {
+      return toast.error("Please provide your delivery address")
     }
     
     setLoading(true)
@@ -107,6 +112,7 @@ const SignUp = () => {
                   className='w-full h-full outline-none bg-transparent'/>
               </div>
             </div>
+
             <div className='grid'>
               <label>Email : </label>
               <div className='bg-slate-100 p-2'>
@@ -119,6 +125,22 @@ const SignUp = () => {
                   required
                   disabled={loading}
                   className='w-full h-full outline-none bg-transparent'/>
+              </div>
+            </div>
+
+            {/* Added Address field */}
+            <div className='grid'>
+              <label>Delivery Address : </label>
+              <div className='bg-slate-100 p-2'>
+                <textarea 
+                  placeholder='enter your delivery address' 
+                  name='address'
+                  value={data.address}
+                  onChange={handleOnChange}
+                  required
+                  disabled={loading}
+                  rows="3"
+                  className='w-full h-full outline-none bg-transparent resize-none'/>
               </div>
             </div>
 

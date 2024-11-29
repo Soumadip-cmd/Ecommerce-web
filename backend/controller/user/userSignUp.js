@@ -1,14 +1,13 @@
 const userModel = require("../../models/userModel")
 const bcrypt = require('bcryptjs');
 
-
 async function userSignUpController(req,res){
     try{
-        const { email, password, name} = req.body
+        const { email, password, name, address } = req.body
 
         const user = await userModel.findOne({email})
 
-        console.log("user",user)
+        console.log("user", user)
 
         if(user){
             throw new Error("Already user exits.")
@@ -22,6 +21,9 @@ async function userSignUpController(req,res){
         }
         if(!name){
             throw new Error("Please provide name")
+        }
+        if(!address){
+            throw new Error("Please provide delivery address")
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -47,10 +49,9 @@ async function userSignUpController(req,res){
             message : "User created Successfully!"
         })
 
-
     }catch(err){
         res.json({
-            message : err.message || err  ,
+            message : err.message || err,
             error : true,
             success : false,
         })
