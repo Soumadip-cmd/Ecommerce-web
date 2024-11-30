@@ -263,7 +263,7 @@ const Cart = () => {
           {loading ? (
             <div className="h-36 bg-slate-200 border border-slate-300 animate-pulse"></div>
           ) : (
-            <div className="h-36 bg-white">
+            <div className="h-36 bg-white mb-[60px]">
               <h2 className="text-white bg-red-600 px-4 py-1">Summary</h2>
               <div className="flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600">
                 <p>Quantity</p>
