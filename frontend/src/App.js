@@ -3,7 +3,7 @@ import "./App.css";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { Toaster } from "react-hot-toast"; // Update ToastContainer to Toaster
+import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import SummaryApi from "./common";
 import Context from "./context";
@@ -13,7 +13,7 @@ import { setUserDetails } from "./store/userSlice";
 function App() {
   const dispatch = useDispatch();
   const [cartProductCount, setCartProductCount] = useState(0);
-  const location = useLocation(); // Get the current route path
+  const location = useLocation();
 
   const fetchUserDetails = async () => {
     const dataResponse = await fetch(SummaryApi.current_user.url, {
@@ -35,7 +35,6 @@ function App() {
     });
 
     const dataApi = await dataResponse.json();
-
     setCartProductCount(dataApi?.data?.count);
   };
 
@@ -45,7 +44,11 @@ function App() {
     /**user Details cart product */
     fetchUserAddToCart();
   }, []);
-  
+
+  // Array of paths where Footer should not be shown
+  const noFooterPaths = ['/', '/cart'];
+  const shouldShowFooter = !noFooterPaths.includes(location.pathname);
+
   return (
     <>
       <Context.Provider
@@ -55,14 +58,12 @@ function App() {
           fetchUserAddToCart,
         }}
       >
-        <Toaster position="top-center" /> {/* Updated to use Toaster */}
-
+        <Toaster position="top-center" />
         <Header />
         <main className="min-h-[calc(100vh-120px)] pt-16">
           <Outlet />
         </main>
-
-        {location.pathname !== "/" && <Footer />}
+        {shouldShowFooter && <Footer />}
       </Context.Provider>
     </>
   );
