@@ -1,5 +1,5 @@
-// const backendDomin = "https://ecommerce-web-hwh3.onrender.com"
-const backendDomin = "http://localhost:8088"
+const backendDomin = "https://ecommerce-web-hwh3.onrender.com"
+// const backendDomin = "http://localhost:8088"
 
 const SummaryApi = {
     signUP : {
