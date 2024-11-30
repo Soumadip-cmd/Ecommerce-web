@@ -286,7 +286,7 @@ const Cart = () => {
           )}
         </div>
       </div>
-      <footer className="bg-slate-200 ">
+      {/* <footer className="bg-slate-200 ">
         <div className="container mx-auto p-4">
           <p className="text-center font-medium">
             {" "}
@@ -298,7 +298,7 @@ const Cart = () => {
             </p>
           </p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };

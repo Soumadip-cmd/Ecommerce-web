@@ -9,6 +9,7 @@ import Context from '../context'
 const HorizontalCardProduct = ({category, heading}) => {
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(true)
+    const [addingToCart, setAddingToCart] = useState(new Set()) // Track items being added to cart
     const loadingList = new Array(13).fill(null)
 
     const [scroll,setScroll] = useState(0)
@@ -18,8 +19,18 @@ const HorizontalCardProduct = ({category, heading}) => {
     const { fetchUserAddToCart } = useContext(Context)
 
     const handleAddToCart = async(e,id)=>{
-       await addToCart(e,id)
-       fetchUserAddToCart()
+        e.preventDefault() // Prevent navigation
+        setAddingToCart(prev => new Set(prev).add(id)) // Start loading
+        try {
+            await addToCart(e,id)
+            await fetchUserAddToCart()
+        } finally {
+            setAddingToCart(prev => {
+                const newSet = new Set(prev)
+                newSet.delete(id)
+                return newSet
+            }) // Stop loading
+        }
     }
 
     const fetchData = async() =>{
@@ -87,7 +98,20 @@ const HorizontalCardProduct = ({category, heading}) => {
                                 <p className='text-red-600 font-medium'>{ displayINRCurrency(product?.sellingPrice) }</p>
                                 <p className='text-slate-500 line-through'>{ displayINRCurrency(product?.price)  }</p>
                             </div>
-                            <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e)=>handleAddToCart(e,product?._id)}>Add to Cart</button>
+                            <button 
+                                className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full flex items-center justify-center gap-2 disabled:opacity-50' 
+                                onClick={(e)=>handleAddToCart(e,product?._id)}
+                                disabled={addingToCart.has(product?._id)}
+                            >
+                                {addingToCart.has(product?._id) ? (
+                                    <>
+                                        <span className='inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></span>
+                                        Adding...
+                                    </>
+                                ) : (
+                                    'Add to Cart'
+                                )}
+                            </button>
                         </div>
                     </Link>
                 )

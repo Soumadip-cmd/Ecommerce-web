@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   // Array of paths where Footer should not be shown
-  const noFooterPaths = ['/', '/cart'];
+  const noFooterPaths = ['/'];
   const shouldShowFooter = !noFooterPaths.includes(location.pathname);
 
   return (
