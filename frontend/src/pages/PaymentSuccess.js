@@ -54,7 +54,7 @@ const PaymentSuccess = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-white flex items-center justify-center">
+      <div className=" bg-gradient-to-br from-red-50 to-white flex items-center justify-center">
         <div className="animate-spin h-8 w-8 border-4 border-red-600 rounded-full border-t-transparent"></div>
       </div>
     );
