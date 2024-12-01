@@ -196,8 +196,6 @@ const Cart = () => {
         order_id: responseData.order.id,
         handler: async function (response) {
           try {
-            // Verify payment on backend
-            console.log(responseData)
             const verifyResponse = await fetch(`${url}/api/paymentVerify`, {
               method: 'POST',
               credentials: 'include',
@@ -205,11 +203,9 @@ const Cart = () => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                orderId: responseData.order.id,
                 razorpay_order_id: response.razorpay_order_id,
-                
                 razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
+                razorpay_signature: response.razorpay_signature
               })
             });
             
@@ -220,7 +216,8 @@ const Cart = () => {
               // Clear cart after successful payment
               setData([]);
               context.fetchUserAddToCart();
-              navigate(`/payment-success?reference=${response.razorpay_payment_id}`);
+              // Force navigation using window.location for a full page reload
+              window.location.href = `/payment-success?reference=${response.razorpay_payment_id}`;
             } else {
               toast.error(verifyData.message || 'Payment verification failed');
             }

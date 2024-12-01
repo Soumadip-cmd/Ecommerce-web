@@ -71,12 +71,20 @@ const PaymentVerify = async (req, res) => {
     const isAuthentic = expectedSignature === razorpay_signature;
 
     if (isAuthentic) {
+      // Get the original order to store the amount
+      const instance = new Razorpay({
+        key_id: process.env.KEY_ID,
+        key_secret: process.env.KEY_SECRET,
+      });
+      
+      const orderDetails = await instance.orders.fetch(razorpay_order_id);
+      
       // Database comes here
       await Payment.create({
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
-        amount: order.amount 
+        amount: orderDetails.amount // Now we have the correct amount
       });
 
       res.status(200).json({
@@ -97,7 +105,6 @@ const PaymentVerify = async (req, res) => {
     });
   }
 };
-
 
 const getPaymentDetails = async (req, res) => {
   try {
