@@ -4,6 +4,7 @@ import Context from "../context";
 import displayINRCurrency from "../helpers/displayCurrency";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [data, setData] = useState([]);
@@ -152,31 +153,112 @@ const Cart = () => {
   );
 
   // Payment
-  const handlePayment = (totalPrice) => {
-    // const url = "http://localhost:8088";
-    const url="https://ecommerce-web-hwh3.onrender.com"
-    const options = {
-      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-      amount: totalPrice * 100,
-      currency: "INR",
-      name: "BaXar Corp.",
-      description: "Thank You For Shopping... Have A Good day !..",
-      image: "logo.png",
-      callback_url: `${url}/api/paymentVerify`,
-      prefill: {
-        name: userData.name,
-        email: userData.email,
-      },
-      notes: {
-        address: userData.location,
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
+  const navigate = useNavigate();
+  const handlePayment = async (totalPrice) => {
 
-    const razor = new window.Razorpay(options);
-    razor.open();
+    console.log('clicked',totalPrice)
+    
+    // const url = "http://localhost:8088";
+    const url = "https://ecommerce-web-hwh3.onrender.com"
+    
+    if (!totalPrice) {
+      toast.error("Please add items to cart first");
+      return;
+    }
+  
+    try {
+      // First create order on backend
+      const response = await fetch(`${url}/api/paymentCheck`, {
+        method: 'POST',
+        credentials: 'include', // Added to include cookies
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          amount: totalPrice,
+          currency: "INR" 
+        })
+      });
+      
+      const responseData = await response.json();
+      
+      if (!responseData.success) {
+        throw new Error(responseData.message || 'Failed to create order');
+      }
+  
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount: totalPrice * 100, // Razorpay expects amount in paise
+        currency: "INR",
+        name: "BaXar Corp.",
+        description: "Thank You For Shopping... Have A Good day!",
+        image: "logo.png",
+        order_id: responseData.order.id,
+        handler: async function (response) {
+          try {
+            // Verify payment on backend
+            console.log(responseData)
+            const verifyResponse = await fetch(`${url}/api/paymentVerify`, {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                orderId: responseData.order.id,
+                razorpay_order_id: response.razorpay_order_id,
+                
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              })
+            });
+            
+            const verifyData = await verifyResponse.json();
+            
+            if (verifyData.success) {
+              toast.success("Payment successful!");
+              // Clear cart after successful payment
+              setData([]);
+              context.fetchUserAddToCart();
+              navigate(`/payment-success?reference=${response.razorpay_payment_id}`);
+            } else {
+              toast.error(verifyData.message || 'Payment verification failed');
+            }
+          } catch (error) {
+            console.error('Verification Error:', error);
+            toast.error('Payment verification failed. Please contact support.');
+          }
+        },
+        prefill: {
+          name: userData.name,
+          email: userData.email,
+          contact: userData.phone // Add if you have phone number
+        },
+        notes: {
+          address: userData.location,
+          userId: userData._id // Add if you want to track user
+        },
+        theme: {
+          color: "#A02727",
+        },
+      };
+  
+      // Initialize Razorpay
+      const razorpayInstance = new window.Razorpay(options);
+      
+      // Handle payment failures
+      razorpayInstance.on('payment.failed', function(response) {
+        console.error('Payment Failed:', response.error);
+        toast.error(`Payment failed: ${response.error.description}`);
+      });
+  
+      // Open Razorpay modal
+      razorpayInstance.open();
+  
+    } catch (error) {
+      console.error('Payment Error:', error);
+      toast.error(error.message || 'Failed to initiate payment. Please try again.');
+    }
   };
 
   return (
@@ -286,19 +368,7 @@ const Cart = () => {
           )}
         </div>
       </div>
-      {/* <footer className="bg-slate-200 ">
-        <div className="container mx-auto p-4">
-          <p className="text-center font-medium">
-            {" "}
-            <p className=" font-extralight">
-              <span className=" font-normal">
-                Copyright &copy; & Developed by
-              </span>{" "}
-              <strong>~ Soumadip.</strong>.
-            </p>
-          </p>
-        </div>
-      </footer> */}
+      
     </div>
   );
 };
